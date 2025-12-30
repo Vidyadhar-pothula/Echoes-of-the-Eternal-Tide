@@ -1,4 +1,4 @@
-```javascript
+
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
@@ -148,21 +148,21 @@ const BackgroundManager = ({ type }) => {
       {/* Parallax Container */}
       <motion.div
         style={{
-           width: '100%', height: '100%', position: 'absolute',
-           rotateX, rotateY // Mouse lag parallax
+          width: '100%', height: '100%', position: 'absolute',
+          rotateX, rotateY // Mouse lag parallax
         }}
-        animate={{ 
-            scale: [1, 1.05, 1], // Gentle breathing camera 
-            x: [0, -10, 0] // Slow drift
-        }} 
-        transition={{ 
-            duration: 30, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
+        animate={{
+          scale: [1, 1.05, 1], // Gentle breathing camera 
+          x: [0, -10, 0] // Slow drift
+        }}
+        transition={{
+          duration: 30,
+          repeat: Infinity,
+          ease: "easeInOut"
         }}
       >
         <div style={{ position: 'absolute', inset: 0, background: getBackgroundStyle(), opacity: 0.85, mixBlendMode: 'multiply' }} />
-        
+
         {(type === 'night' || type === 'war') && <Stars count={type === 'war' ? 30 : 100} speed={getSpeed()} />}
         {(type === 'ocean' || type === 'calm') && <Waves speed={getSpeed()} />}
         {type === 'shore' && <Waves speed={getSpeed()} />}
