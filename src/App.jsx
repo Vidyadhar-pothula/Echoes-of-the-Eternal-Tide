@@ -16,13 +16,16 @@ function App() {
         <div style={{
           position: 'absolute',
           top: 0, left: 0, width: '100vw', height: '100vh',
-          background: 'rgba(0,0,0,0.8)',
+          background: '#000', // Solid black for initial state
           zIndex: 100,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column',
-          color: '#fff'
+          color: '#fff',
+          transition: 'opacity 2s ease-out', // Slow CSS transition
+          opacity: 1,
+          pointerEvents: 'auto'
         }}>
           <h1 style={{ fontFamily: 'var(--font-display)', marginBottom: '2rem' }}>Echoes of the Eternal Tide</h1>
           <button
@@ -34,6 +37,17 @@ function App() {
           </button>
         </div>
       )}
+
+      {/* Screen Curtain for dark-to-light transition */}
+      <div
+        style={{
+          position: 'absolute', inset: 0, background: '#000', zIndex: 90,
+          pointerEvents: 'none',
+          opacity: hasStarted ? 0 : 1,
+          transition: 'opacity 3s ease-in-out',
+          transitionDelay: '0.5s' // Delay slightly after click
+        }}
+      />
 
       {hasStarted && (
         <>

@@ -15,7 +15,9 @@ const PageDisplay = () => {
       opacity: 0,
       rotateY: direction > 0 ? 45 : -45,
       scale: 0.9,
-      zIndex: 0
+      zIndex: 0,
+      filter: 'blur(5px)', // Blur on enter
+      boxShadow: '0 0 0 rgba(0,0,0,0)'
     }),
     center: {
       zIndex: 1,
@@ -23,10 +25,13 @@ const PageDisplay = () => {
       opacity: 1,
       rotateY: 0,
       scale: 1,
+      filter: 'blur(0px)',
+      boxShadow: '0 20px 50px rgba(0,0,0,0.5)', // Shadow when active
       transition: {
         x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.2 },
-        scale: { duration: 0.2 }
+        opacity: { duration: 0.4 }, // Slower fade
+        scale: { duration: 0.4 },
+        filter: { duration: 0.3 }
       }
     },
     exit: (direction) => ({
@@ -35,10 +40,13 @@ const PageDisplay = () => {
       opacity: 0,
       rotateY: direction < 0 ? 45 : -45,
       scale: 0.9,
+      filter: 'blur(5px)', // Blur on exit
+      boxShadow: '0 0 0 rgba(0,0,0,0)',
       transition: {
         x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.2 },
-        scale: { duration: 0.2 }
+        opacity: { duration: 0.4 },
+        scale: { duration: 0.4 },
+        filter: { duration: 0.3 }
       }
     }),
   };

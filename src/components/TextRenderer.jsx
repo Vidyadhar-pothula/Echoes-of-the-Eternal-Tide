@@ -10,7 +10,7 @@ const TextRenderer = ({ text, animationType, emotional, onComplete }) => {
     visible: (i = 1) => ({
       opacity: 1,
       transition: {
-        staggerChildren: 0.8, // Delay between lines
+        staggerChildren: emotional ? 1.5 : 0.8, // Slower for emotional lines
         delayChildren: 0.3
       }
     })
