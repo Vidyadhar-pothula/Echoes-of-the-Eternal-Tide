@@ -133,7 +133,11 @@ const BackgroundManager = ({ type }) => {
         left: 0,
         width: '100%',
         height: '100%',
-        background: `url(${ import.meta.env.BASE_URL }mermaid.png) center / cover no - repeat fixed`,
+        backgroundImage: `url(${ import.meta.env.BASE_URL }mermaid.png)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
         zIndex: 0,
         overflow: 'hidden',
         perspective: 1000
