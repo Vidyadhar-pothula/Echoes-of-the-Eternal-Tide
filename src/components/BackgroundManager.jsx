@@ -120,6 +120,8 @@ const BackgroundManager = ({ type }) => {
     }
   };
 
+  const bgUrl = `url(${ import.meta.env.BASE_URL }mermaid.png)`;
+
   return (
     <motion.div
       key={type}
@@ -133,7 +135,7 @@ const BackgroundManager = ({ type }) => {
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundImage: `url(${ import.meta.env.BASE_URL }mermaid.png)`,
+        backgroundImage: bgUrl,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
