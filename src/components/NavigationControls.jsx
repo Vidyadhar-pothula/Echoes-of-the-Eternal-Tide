@@ -21,36 +21,24 @@ const NavigationControls = () => {
     <div style={{
       position: 'absolute', bottom: '2rem', right: '2rem', display: 'flex', gap: '1rem', zIndex: 50
     }}>
-      <button 
-        onClick={prevPage} 
+      <button
+        onClick={prevPage}
         disabled={isFirst}
-        style={{ ...btnStyle, opacity: isFirst ? 0.3 : 1, cursor: isFirst ? 'default' : 'pointer' }}
+        className="btn-nav"
         aria-label="Previous Page"
       >
         <ArrowLeft size={24} />
       </button>
-      <button 
-        onClick={nextPage} 
+      <button
+        onClick={nextPage}
         disabled={isLast}
-        style={{ ...btnStyle, opacity: isLast ? 0.3 : 1, cursor: isLast ? 'default' : 'pointer' }}
+        className="btn-nav"
         aria-label="Next Page"
       >
         <ArrowRight size={24} />
       </button>
     </div>
   );
-};
-
-const btnStyle = {
-  background: 'rgba(255, 255, 255, 0.1)',
-  border: '1px solid rgba(255, 255, 255, 0.2)',
-  color: 'white',
-  padding: '1rem',
-  borderRadius: '50%',
-  backdropFilter: 'blur(5px)',
-  transition: 'all 0.3s ease',
-  display: 'flex', alignItems: 'center', justifyContent: 'center',
-  outline: 'none'
 };
 
 export default NavigationControls;

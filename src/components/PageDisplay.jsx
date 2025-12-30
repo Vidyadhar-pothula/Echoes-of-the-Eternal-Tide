@@ -14,21 +14,32 @@ const PageDisplay = () => {
       x: direction > 0 ? '100%' : '-100%',
       opacity: 0,
       rotateY: direction > 0 ? 45 : -45,
-      scale: 0.9
+      scale: 0.9,
+      zIndex: 0
     }),
     center: {
       zIndex: 1,
       x: 0,
       opacity: 1,
       rotateY: 0,
-      scale: 1
+      scale: 1,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.2 },
+        scale: { duration: 0.2 }
+      }
     },
     exit: (direction) => ({
       zIndex: 0,
       x: direction < 0 ? '100%' : '-100%',
       opacity: 0,
       rotateY: direction < 0 ? 45 : -45,
-      scale: 0.9
+      scale: 0.9,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.2 },
+        scale: { duration: 0.2 }
+      }
     }),
   };
 
@@ -42,12 +53,6 @@ const PageDisplay = () => {
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{
-            x: { type: "spring", stiffness: 200, damping: 25 },
-            opacity: { duration: 0.4 },
-            rotateY: { duration: 0.6 },
-            scale: { duration: 0.5 }
-          }}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.2}
@@ -65,28 +70,40 @@ const PageDisplay = () => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            background: 'black',
             overflow: 'hidden',
-            boxShadow: '0 0 50px rgba(0,0,0,0.5) inset',
             touchAction: 'none'
           }}
         >
-          <BackgroundManager type={page.backgroundType} />
-          
-          <div style={{
-            position: 'relative',
-            zIndex: 10,
-            maxWidth: '900px',
-            width: '90%',
-            padding: '3rem',
-            textAlign: 'center',
-            background: 'rgba(0,0,0,0.4)',
-            borderRadius: '12px',
-            backdropFilter: 'blur(3px)',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-            border: '1px solid rgba(255,255,255,0.1)'
-          }}>
-            <TextRenderer text={page.text} animationType={page.animationType} />
+          <div style={{ position: 'absolute', inset: 0, zIndex: -1 }}>
+            <BackgroundManager type={page.backgroundType} />
+          </div>
+
+          <div
+            className="glass-panel"
+            onClick={nextPage}
+            style={{
+              position: 'relative',
+              zIndex: 10,
+              maxWidth: '900px',
+              width: '90%',
+              padding: 'clamp(2rem, 5vw, 4rem)',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minHeight: '200px',
+              cursor: 'pointer'
+            }}
+          >
+            <TextRenderer
+              text={page.text}
+              animationType={page.animationType}
+              emotional={page.emotional}
+            />
+            <div style={{ marginTop: '1rem', opacity: 0.5, fontSize: '0.8rem' }}>
+              (Tap or Swipe to Continue)
+            </div>
           </div>
         </motion.div>
       </AnimatePresence>

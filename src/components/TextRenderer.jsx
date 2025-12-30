@@ -1,72 +1,65 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const TextRenderer = ({ text, animationType }) => {
-  // Split text into words/letters for detailed animation
-  const words = text.split(" ");
+const TextRenderer = ({ text, animationType, emotional, onComplete }) => {
+  // Use lines for better pacing if text has newlines
+  const lines = text.split('\n');
 
   const container = {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
-      transition: { staggerChildren: animationType === 'typewriter' ? 0.04 : 0.12, delayChildren: 0.3 }
+      transition: {
+        staggerChildren: 0.8, // Delay between lines
+        delayChildren: 0.3
+      }
     })
   };
 
-  const child = {
+  // For individual lines
+  const lineVariant = {
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
       y: 0,
-      filter: 'blur(0px)',
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
-      },
-    },
-    hidden: {
-      opacity: 0,
-      y: 20,
-      filter: 'blur(10px)',
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
-      },
-    },
+      transition: { duration: 0.8, ease: "easeOut" },
+    }
   };
 
-  if (animationType === 'slide') {
-    child.hidden.y = 50;
-  }
+  // For typewriter effect (splitting line into characters/words if needed, 
+  // but for simplicity and readability, fading distinct lines is often more cinematic 
+  // than character-by-character for long text. However, prompt asks for "typewriter or fade-in".
+  // Let's do a hybrid: Lines appear one by one. If it's typewriter, the line itself wipes or fades in faster.)
 
   return (
-    <motion.h2
+    <motion.div
+      className="text-display"
       style={{
-        fontFamily: "'Georgia', serif",
-        fontSize: '2.5rem',
-        lineHeight: '1.4',
-        fontWeight: '300',
-        color: '#f0f0f0',
+        fontSize: 'clamp(1.5rem, 5vw, 2.5rem)',
+        color: 'var(--color-text-primary)',
         textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-        letterSpacing: '0.02em',
+        margin: 0,
+        lineHeight: 1.6
       }}
       variants={container}
       initial="hidden"
       animate="visible"
+      onAnimationComplete={() => onComplete && onComplete()}
     >
-      {words.map((word, index) => (
-        <motion.span
-          variants={child}
-          style={{ display: 'inline-block', marginRight: '0.25em' }}
+      {lines.map((line, index) => (
+        <motion.p
           key={index}
+          variants={lineVariant}
+          style={{
+            marginBottom: '1rem',
+            textShadow: emotional ? '0 0 20px rgba(255, 215, 0, 0.4)' : 'none',
+            color: emotional ? 'rgba(255, 255, 240, 1)' : 'var(--color-text-primary)'
+          }}
         >
-          {word === "secrets" || word === "war" || word === "broken" ? (
-            <span style={{ color: '#ffcccb', textShadow: '0 0 10px rgba(255,100,100,0.5)' }}>{word}</span>
-          ) : word}
-        </motion.span>
+          {line}
+        </motion.p>
       ))}
-    </motion.h2>
+    </motion.div>
   );
 };
 
