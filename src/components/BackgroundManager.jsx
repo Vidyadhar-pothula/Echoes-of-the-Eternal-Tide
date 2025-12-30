@@ -107,10 +107,11 @@ const BackgroundManager = ({ type }) => {
         left: 0,
         width: '100%',
         height: '100%',
-        background: getBackgroundStyle(),
+        background: `url(${import.meta.env.BASE_URL}mermaid.png) center/cover no-repeat fixed`,
         zIndex: 0
       }}
     >
+      <div style={{ position: 'absolute', inset: 0, background: getBackgroundStyle(), opacity: 0.8, mixBlendMode: 'multiply' }} />
       {(type === 'night' || type === 'war') && <Stars count={100} />}
       {(type === 'ocean' || type === 'calm') && <Waves />}
       {type === 'shore' && <Waves />}
