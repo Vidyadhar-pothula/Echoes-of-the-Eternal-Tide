@@ -5,6 +5,9 @@ export const useStore = create((set) => ({
   currentPageIndex: 0,
   direction: 1,
   isAnimating: false,
+  hasStarted: false,
+
+  setHasStarted: (hasStarted) => set({ hasStarted }),
 
   nextPage: () => set((state) => {
     if (state.currentPageIndex < storyData.length - 1) {
