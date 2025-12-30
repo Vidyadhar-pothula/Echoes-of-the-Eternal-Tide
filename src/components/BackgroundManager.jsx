@@ -173,4 +173,4 @@ const BackgroundManager = ({ type }) => {
 };
 
 export default BackgroundManager;
-```
+
