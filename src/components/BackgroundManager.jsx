@@ -120,7 +120,7 @@ const BackgroundManager = ({ type }) => {
     }
   };
 
-  const bgUrl = `url(${ import.meta.env.BASE_URL }mermaid.png)`;
+  const bgUrl = 'url(' + import.meta.env.BASE_URL + 'mermaid.png)';
 
   return (
     <motion.div
